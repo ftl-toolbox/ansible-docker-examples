@@ -4,4 +4,4 @@
   become       : True
 
   roles:
-    - ansible-dockerized-wordpress
+    - ansible-dockerized-elk

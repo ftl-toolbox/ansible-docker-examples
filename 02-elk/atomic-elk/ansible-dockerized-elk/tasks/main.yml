@@ -1,0 +1,43 @@
+---
+# tasks file for ansible-dockerized-elk
+
+- name: "Get pwd"
+  command: ls
+  register: current_path
+
+- name: "Echo ls"
+  debug: msg="{{ current_path }}"
+
+- name: "Build kibana container"
+  command: docker build ../files/kibana/Dockerfile
+
+- name: "Launch elasticsearch container"
+  docker:
+    name: elasticsearch
+    image: elasticsearch:latest
+    command: elasticsearch -Des.network.host=0.0.0.0
+    ports:
+    - "9200:9200"
+    - "9300:9300"
+
+- name: "Launch logstash container"
+  docker:
+    name: logstash
+    image: logstash:latest
+    command: logstash -f /etc/logstash/conf.d/logstash.conf
+    volumes:
+    - ../files/logstash/config:/etc/logstash/conf.d
+    ports:
+    - "5000:5000"
+    links:
+    - elasticsearch
+
+- name: "Launch kibana container"
+  docker: 
+    volumes:
+    - ../files/kibana/config/kibana.yml:/opt/kibana/config/kibana.yml
+    ports:
+    - "5601:5601"
+    links:
+    - elasticsearch
+
