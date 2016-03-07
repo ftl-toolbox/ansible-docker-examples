@@ -1,12 +1,18 @@
 ---
 # tasks file for ansible-dockerized-elk
 
-- name: "Find out what's in the vagrant directory"
-  command: ls /vagrant
-  register: vagrantls
-
-- name: "Show me what's in the vagrant directory"
-  debug: msg={{ vagrantls.stdout }}
+- name: "Set SELinux context properly"
+  # In the future, someone wise can set this properly. 
+  # For now, the following command doesn't work, so we'll
+  # simply put SELinux into permissive mode.
+  #
+  # The point of the example is to show that, unlike
+  # in a docker-compose file, you can set system 
+  # attributes that are independent of Docker itself.
+  # For any secure Enterprise Linux platform, setting
+  # of SELinux context will be critical.
+  # command: chcon -R system_u:object_r:admin_home_t:s0 fig-elk/
+  command: setenforce 0
 
 - name: "Build kibana container"
   docker_image: path="/vagrant/ansible-dockerized-elk/files/kibana" name="localkibana" state=build
