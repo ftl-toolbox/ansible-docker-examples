@@ -5,8 +5,8 @@ https://github.com/deviantony/docker-elk.git
 
 Simple setup:
 
-1. docker-compose up
-2. Go to http://192.168.99.100:5601/app/sense to see working UI
+1. vagrant up
+2. Go to localhost:5601 to see working UI
 
 Original setup notes follow.
 

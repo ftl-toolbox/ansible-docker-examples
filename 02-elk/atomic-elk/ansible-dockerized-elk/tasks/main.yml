@@ -50,3 +50,17 @@
     links:
     - elasticsearch
 
+- name: "Wait for services to start"
+  pause: minutes=1
+
+- name: "Check the status of kibana UI"
+  command: curl localhost:5601/app/kibana
+  register: curl_result
+
+- name: "Ensure that proper data is present in stdout"
+  assert: 
+    that: 
+      - "'kibana.bundle.js' in curl_result.stdout"
+
+# Check for presence of string: kibana.bundle.js
+# In: curl localhost:5601/app/kibana
