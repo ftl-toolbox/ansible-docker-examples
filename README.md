@@ -12,4 +12,4 @@ ansible+atomic examples are generally invoked by going into the directory and ru
 
 Caveat #1: does not work on Windows because you can't run the Ansible client from Windows natively. Can be solved by running Ansible from the Vagrant box directly; this is one of the reasons to include Ansible in the Atomic image (or at least as a post-install step in the Vagrantfile.)
 
-Caveat #2: no idea if these are the "canonical" Vagrant files for Atomic; currently using a version of the ADB vagrantfile that was grabbed from the internet somewhere.  Most notable modification is the injection of the Ansible provisioning step into the Vagrantfile.
+Caveat #2: no idea if these are the "canonical" Vagrantfiles for Atomic; currently using a version of the ADB Vagrantfile that was grabbed from the internet somewhere.  Most notable modification is the injection of the Ansible provisioning step into the Vagrantfile.
